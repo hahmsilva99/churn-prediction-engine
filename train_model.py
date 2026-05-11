@@ -8,7 +8,7 @@ from sklearn.metrics import accuracy_score
 
 # 1. Data load kirima
 print("Data load wenawa...")
-df = pd.read_csv('churn_data.csv')
+df = pd.read_excel('churn_data.xlsx')
 
 # 2. Data Cleaning & Preprocessing
 # TotalCharges wala thiyena his than 0 walin purawanawa
