@@ -11,22 +11,24 @@ print("Data load wenawa...")
 df = pd.read_excel('churn_data.xlsx')
 
 # 2. Data Cleaning & Preprocessing
-# TotalCharges wala thiyena his than 0 walin purawanawa
-df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce').fillna(0)
+# Total Charges wala his than 0 walin purawanawa (Nama wenas wela thibbe 'Total Charges' kiyala)
+df['Total Charges'] = pd.to_numeric(df['Total Charges'], errors='coerce').fillna(0)
 
-# customerID eka model ekata wadak nathi nisa ain karanawa
-df.drop('customerID', axis=1, inplace=True)
+# Wedak nathi columns saha Target eka leak wena columns ain karanawa
+columns_to_drop = ['CustomerID', 'Count', 'Country', 'State', 'City', 'Zip Code', 'Lat Long', 
+                   'Churn Label', 'Churn Score', 'CLTV', 'Churn Reason']
+df.drop(columns=columns_to_drop, inplace=True, errors='ignore')
 
-# Text data (Yes/No, Gender wage ewa) numbers walata harawanawa (Machine learning walata oni numbers nisa)
+# Text data numbers walata harawanawa
 print("Data clean karanawa...")
 for column in df.columns:
     if df[column].dtype == 'object':
         le = LabelEncoder()
         df[column] = le.fit_transform(df[column])
 
-# Features (X) saha Target (y - Churn eka) wen kirima
-X = df.drop('Churn', axis=1)
-y = df['Churn']
+# Features (X) saha Target (y - Churn Value eka) wen kirima
+X = df.drop('Churn Value', axis=1)
+y = df['Churn Value']
 
 # Train saha Test widiyata data bedima (80% train, 20% test)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
