@@ -43,12 +43,12 @@ print("XGBoost model eka train wenawa...")
 model = xgb.XGBClassifier(random_state=42, eval_metric='logloss')
 model.fit(X_train_smote, y_train_smote)
 
-# Accuracy eka balamu
+# Checking Model Accuracy 
 y_pred = model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
-print(f"Model Accuracy eka: {accuracy * 100:.2f}%")
+print(f"Model Accuracy : {accuracy * 100:.2f}%")
 
-# 5. Model eka Save kirima
+# 5. Saving the Model 
 with open('model.pkl', 'wb') as file:
     pickle.dump(model, file)
-print("Model eka 'model.pkl' widiyata save una! Wede success!")
+print("Model is saving as 'model.pkl' , Task is success!")
